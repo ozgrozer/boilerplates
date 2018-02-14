@@ -1,0 +1,19 @@
+{
+  "name": "electron",
+  "version": "0.0.1",
+  "main": "electron.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "build -m && npm run release",
+    "release": "npm run release:mac",
+    "prerelease:mac": "rm -rf releases/$npm_package_version/mac && mkdirp releases/$npm_package_version/mac",
+    "release:mac": "cp -R dist/*.dmg releases/$npm_package_version/mac/$npm_package_name-$npm_package_version.dmg",
+    "postrelease": "rm -rf dist"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^1.8.2",
+    "electron-builder": "^20.0.4",
+    "mkdirp": "^0.5.1"
+  }
+}
