@@ -1,0 +1,43 @@
+{
+  "name": "electron-react-parcel",
+  "description": "description",
+  "author": "author",
+  "version": "0.0.1",
+  "main": "electron.js",
+  "scripts": {
+    "start-parcel": "parcel ./src/index.html -d ./public -p 1234",
+    "start-electron": "electron .",
+    "build": "npm run build-parcel && npm run build-electron",
+    "build-parcel": "parcel build ./src/index.html -d ./public --public-url ./",
+    "build-electron": "build -mw && npm run release",
+    "release": "npm run release:mac && npm run release:windows",
+    "prerelease:mac": "rm -rf releases/$npm_package_version/mac && mkdirp releases/$npm_package_version/mac",
+    "release:mac": "cp -R dist/*.dmg releases/$npm_package_version/mac/$npm_package_name-$npm_package_version.dmg",
+    "prerelease:windows": "rm -rf releases/$npm_package_version/windows && mkdirp releases/$npm_package_version/windows",
+    "release:windows": "cp -R dist/*.exe releases/$npm_package_version/windows/$npm_package_name-$npm_package_version.exe",
+    "postrelease": "rm -rf dist"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^1.8.2",
+    "electron-builder": "^20.0.4",
+    "mkdirp": "^0.5.1"
+  },
+  "dependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "electron-is-dev": "^0.3.0",
+    "node-sass": "^4.7.2",
+    "parcel-bundler": "^1.5.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "build": {
+    "appId": "com.author.name",
+    "files": [
+      "electron.js",
+      "node_modules",
+      "public/**/*"
+    ]
+  }
+}
