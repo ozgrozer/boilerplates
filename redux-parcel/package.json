@@ -1,13 +1,13 @@
 {
   "name": "redux-parcel",
   "scripts": {
-    "start": "parcel ./src/html/index.html -d ./dist -p 1234",
-    "build": "parcel build ./src/html/index.html -d ./dist"
+    "start": "parcel ./src/html/index.html --out-dir ./dist --public-url / --port 1234",
+    "build": "parcel build ./src/html/index.html --out-dir ./dist --public-url /"
   },
   "license": "ISC",
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "parcel-bundler": "^1.6.1",
+    "parcel-bundler": "^1.7.0",
     "redux": "^3.7.2"
   }
 }
