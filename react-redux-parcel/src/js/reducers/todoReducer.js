@@ -1,6 +1,6 @@
 const initialValues = [
-  {id: 0, title: 'watch movie'},
-  {id: 1, title: 'play game'}
+  { id: 0, title: 'watch movie' },
+  { id: 1, title: 'play game' }
 ]
 
 const todoReducer = (state = initialValues, action) => {

@@ -1,7 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-import {addItem} from './../actions/index'
+import { addItem } from './../actions/index'
 
 @connect((store) => {
   return {
@@ -12,14 +12,13 @@ import {addItem} from './../actions/index'
 class Add extends React.Component {
   constructor () {
     super()
-
     this.state = {
       title: ''
     }
   }
 
   handleChange (e) {
-    this.setState({title: e.target.value})
+    this.setState({ title: e.target.value })
   }
 
   handleSubmit (e) {
@@ -27,7 +26,7 @@ class Add extends React.Component {
     const newId = this.props.todo.length
     const title = this.state.title
     this.props.dispatch(addItem(newId, title))
-    this.setState({title: ''})
+    this.setState({ title: '' })
   }
 
   render () {
