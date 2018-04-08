@@ -1,16 +1,15 @@
 {
   "name": "react-parcel",
   "scripts": {
-    "start": "parcel ./src/index.html -d ./dist -p 1234",
-    "build": "parcel build ./src/index.html -d ./dist"
+    "start": "parcel ./src/index.html --out-dir ./dist --public-url / --port 1234",
+    "build": "parcel build ./src/index.html --out-dir ./dist --public-url /"
   },
   "license": "ISC",
   "dependencies": {
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "node-sass": "^4.7.2",
-    "parcel-bundler": "^1.5.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "parcel-bundler": "^1.7.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
   }
 }
