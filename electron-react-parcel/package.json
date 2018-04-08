@@ -5,10 +5,10 @@
   "version": "0.0.1",
   "main": "electron.js",
   "scripts": {
-    "start-parcel": "parcel ./src/index.html -d ./public -p 1234",
+    "start-parcel": "parcel ./src/index.html --out-dir ./public --public-url / --port 1234",
     "start-electron": "electron .",
     "build": "npm run build-parcel && npm run build-electron",
-    "build-parcel": "parcel build ./src/index.html -d ./public --public-url ./",
+    "build-parcel": "parcel build ./src/index.html --out-dir ./public --public-url /",
     "build-electron": "build -mw && npm run release",
     "release": "npm run release:mac && npm run release:windows",
     "prerelease:mac": "rm -rf releases/$npm_package_version/mac && mkdirp releases/$npm_package_version/mac",
@@ -19,18 +19,18 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "electron": "^1.8.2",
-    "electron-builder": "^20.0.4",
+    "electron": "^1.8.4",
+    "electron-builder": "^20.8.1",
     "mkdirp": "^0.5.1"
   },
   "dependencies": {
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "electron-is-dev": "^0.3.0",
-    "node-sass": "^4.7.2",
-    "parcel-bundler": "^1.5.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "node-sass": "^4.8.3",
+    "parcel-bundler": "^1.7.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
   },
   "build": {
     "appId": "com.author.name",
