@@ -4,7 +4,7 @@
     "start": "parcel ./src/index.html --out-dir ./dist --public-url / --port 1234",
     "build": "parcel build ./src/index.html --out-dir ./dist --public-url / --no-source-maps"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
