@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const app = express()
-const port = 4000
+const port = 1235
 
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')))
 

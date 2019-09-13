@@ -2,7 +2,7 @@
   "name": "express-react-parcel",
   "scripts": {
     "server": "node ./src/backend/index.js",
-    "start": "parcel ./src/frontend/index.html --out-dir ./dist --public-url / --port 3000",
+    "start": "parcel ./src/frontend/index.html --out-dir ./dist --public-url / --port 1234",
     "build": "parcel build ./src/frontend/index.html --out-dir ./dist --public-url / --no-source-maps"
   },
   "license": "MIT",
@@ -12,7 +12,7 @@
     "babel-preset-react": "^6.24.1",
     "express": "^4.17.1",
     "parcel-bundler": "^1.12.3",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   }
 }
