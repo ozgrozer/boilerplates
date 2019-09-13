@@ -1,5 +1,8 @@
 # boilerplates
-Ready, set, go.
+
+```
+git clone https://github.com/ozgrozer/boilerplates.git
+```
 
 - [electron](electron)
 - [electron-react-parcel](electron-react-parcel)
