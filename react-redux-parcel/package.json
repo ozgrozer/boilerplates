@@ -4,19 +4,20 @@
     "start": "parcel ./src/html/index.html --out-dir ./dist --public-url / --port 1234",
     "build": "parcel build ./src/html/index.html --out-dir ./dist --public-url /"
   },
-  "license": "ISC",
-  "dependencies": {
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "parcel-bundler": "^1.7.0",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "react-redux": "^5.0.7",
-    "redux": "^3.7.2"
-  },
+  "license": "MIT",
   "standard": {
     "parser": "babel-eslint"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "parcel-bundler": "^1.12.3",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4"
   }
 }
