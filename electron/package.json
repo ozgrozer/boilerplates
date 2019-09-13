@@ -13,11 +13,6 @@
     "postrelease": "rm -rf dist"
   },
   "license": "MIT",
-  "devDependencies": {
-    "electron": "^4.0.2",
-    "electron-builder": "^20.38.5",
-    "mkdirp": "^0.5.1"
-  },
   "build": {
     "publish": null,
     "files": [
@@ -25,5 +20,10 @@
       "node_modules",
       "src"
     ]
+  },
+  "dependencies": {
+    "electron": "^6.0.9",
+    "electron-builder": "^21.2.0",
+    "mkdirp": "^0.5.1"
   }
 }
