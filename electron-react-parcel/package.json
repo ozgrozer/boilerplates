@@ -30,9 +30,8 @@
   },
   "dependencies": {
     "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "electron": "^6.0.9",
+    "electron": "^6.0.10",
     "electron-builder": "^21.2.0",
     "electron-is-dev": "^1.1.0",
     "mkdirp": "^0.5.1",
