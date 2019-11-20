@@ -1,17 +1,17 @@
 {
   "name": "express-react-parcel",
+  "license": "MIT",
   "scripts": {
     "server": "node ./src/backend/index.js",
     "start": "parcel ./src/frontend/index.html --out-dir ./dist --public-url / --port 1234",
     "build": "parcel build ./src/frontend/index.html --out-dir ./dist --public-url / --no-source-maps"
   },
-  "license": "MIT",
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-react": "^6.24.1",
     "express": "^4.17.1",
     "parcel-bundler": "^1.12.4",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   }
 }
