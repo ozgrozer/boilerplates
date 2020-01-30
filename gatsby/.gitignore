@@ -1,0 +1,6 @@
+.DS_Store
+.cache
+dist
+public
+node_modules
+*-error.log
