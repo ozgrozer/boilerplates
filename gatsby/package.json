@@ -9,17 +9,17 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
   "dependencies": {
-    "gatsby": "^2.20.2",
-    "gatsby-plugin-react-helmet": "^3.2.0",
-    "gatsby-plugin-sass": "^2.2.0",
-    "gatsby-source-filesystem": "^2.2.1",
-    "gatsby-transformer-remark": "^2.7.0",
-    "node-sass": "^4.13.1",
+    "gatsby": "^2.22.18",
+    "gatsby-plugin-react-helmet": "^3.3.3",
+    "gatsby-plugin-sass": "^2.3.3",
+    "gatsby-source-filesystem": "^2.3.10",
+    "gatsby-transformer-remark": "^2.8.14",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^6.0.0"
   },
   "devDependencies": {
-    "prettier": "^1.19.1"
+    "prettier": "^2.0.5"
   }
 }
