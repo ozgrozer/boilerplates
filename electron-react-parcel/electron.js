@@ -1,26 +1,27 @@
-const { app, BrowserWindow } = require('electron')
 const isDev = require('electron-is-dev')
-let win
+const { app, BrowserWindow } = require('electron')
 
 const createWindow = () => {
-  win = new BrowserWindow({ width: 640, height: 480, show: false })
-  win.loadURL(isDev ? 'http://localhost:1234' : `file://${__dirname}/public/index.html`)
-  win.once('ready-to-show', () => {
-    win.show()
+  const mainWindow = new BrowserWindow({
+    width: 640,
+    height: 480
   })
-  win.on('closed', () => {
-    win = null
-  })
+
+  if (isDev) {
+    mainWindow.loadURL('http://localhost:1234')
+  } else {
+    mainWindow.loadFile('./public/index.html')
+  }
 }
 
-app.on('ready', createWindow)
+app.whenReady().then(() => {
+  createWindow()
 
-app.on('activate', () => {
-  if (win === null) {
-    createWindow()
-  }
+  app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
 })
 
-app.on('window-all-closed', () => {
-  app.quit()
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit()
 })
