@@ -1,18 +1,17 @@
 {
   "name": "electron",
-  "description": "-",
-  "author": "@ozgrozer",
+  "description": "",
   "version": "0.0.1",
+  "license": "MIT",
   "main": "electron.js",
   "scripts": {
     "start": "electron .",
-    "build": "build -m && npm run release",
+    "build": "electron-builder -m && npm run release",
     "release": "npm run release:mac",
     "prerelease:mac": "rm -rf releases/$npm_package_version/mac && mkdirp releases/$npm_package_version/mac",
     "release:mac": "cp -R dist/*.dmg releases/$npm_package_version/mac/$npm_package_name-$npm_package_version.dmg",
     "postrelease": "rm -rf dist"
   },
-  "license": "MIT",
   "build": {
     "publish": null,
     "files": [
@@ -21,9 +20,9 @@
       "src"
     ]
   },
-  "dependencies": {
-    "electron": "^6.0.9",
-    "electron-builder": "^21.2.0",
-    "mkdirp": "^0.5.1"
+  "devDependencies": {
+    "electron": "^11.0.4",
+    "electron-builder": "^22.9.1",
+    "mkdirp": "^1.0.4"
   }
 }
