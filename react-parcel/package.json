@@ -1,15 +1,15 @@
 {
   "name": "react-parcel",
   "scripts": {
-    "start": "parcel ./src/index.html --out-dir ./dist --public-url / --port 1234",
+    "dev": "parcel ./src/index.html --out-dir ./dist --public-url / --port 1234",
     "build": "parcel build ./src/index.html --out-dir ./dist --public-url / --no-source-maps"
   },
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-react": "^6.24.1",
-    "parcel-bundler": "^1.12.4",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "parcel-bundler": "1.12.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   }
 }

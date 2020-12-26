@@ -1,16 +1,19 @@
 # react-parcel
 
 Install dependencies.
+
 ```
 yarn install
 ```
 
 Start development.
+
 ```
-yarn start
+yarn dev
 ```
 
 Build the app.
+
 ```
 yarn build
 ```
