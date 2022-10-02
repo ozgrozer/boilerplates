@@ -9,6 +9,7 @@ git clone https://github.com/ozgrozer/boilerplates.git
 - [express-react-parcel](express-react-parcel)
 - [gatsby](gatsby)
 - [hyperapp-parcel](hyperapp-parcel)
+- [nest](nest)
 - [next](next)
 - [react-parcel](react-parcel)
 - [react-redux-parcel](react-redux-parcel)
