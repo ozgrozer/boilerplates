@@ -1,0 +1,23 @@
+{
+  "name": "expo",
+  "private": true,
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "expo": "~47.0.8",
+    "expo-status-bar": "~1.4.2",
+    "react": "18.1.0",
+    "react-native": "0.70.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "standard": "^17.0.0"
+  }
+}
