@@ -6,9 +6,9 @@ const port = 1235
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')))
 
 app.listen(port, () => {
-  console.log('Example app listening on port http://localhost:' + port)
+  console.log(`Example app listening on port http://localhost:${port}`)
 })
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'))
 })
