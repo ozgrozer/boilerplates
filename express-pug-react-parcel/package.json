@@ -1,0 +1,26 @@
+{
+  "name": "express-pug-react-parcel",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:parcel\" -c \"red,green\"",
+    "dev:server": "NODE_ENV='development' nodemon ./src/backend/server.js",
+    "dev:parcel": "parcel serve ./src/frontend/js/App.jsx --dist-dir ./dist --public-url / --port 1235 --hmr-port 1236",
+    "server": "NODE_ENV='production' node ./src/backend/server.js",
+    "build": "parcel build ./src/frontend/js/App.jsx --dist-dir ./dist --public-url / --no-source-maps"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "parcel": "^2.9.3",
+    "pug": "^3.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-pug": "2.9.3",
+    "@parcel/transformer-sass": "2.9.3",
+    "concurrently": "^8.2.0",
+    "nodemon": "^2.0.22",
+    "process": "^0.11.10",
+    "standard": "^17.1.0"
+  }
+}
