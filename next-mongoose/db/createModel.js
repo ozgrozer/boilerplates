@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 
 const schemas = require('./schemas')
 
-module.exports = ({ collection }) => {
+module.exports = ({ model }) => {
   const necessarySchema = { createdAt: Number, updatedAt: Number }
-  const combineSchemas = { ...necessarySchema, ...schemas[collection] }
-  const schema = mongoose.Schema(combineSchemas, { collection })
+  const combineSchemas = { ...necessarySchema, ...schemas[model] }
+  const schema = mongoose.Schema(combineSchemas, { model })
 
   schema.pre('save', async function (next) {
     this.createdAt = Math.round(+new Date() / 1000)
@@ -19,9 +19,9 @@ module.exports = ({ collection }) => {
 
   let Model
   try {
-    Model = mongoose.model(collection)
+    Model = mongoose.model(model)
   } catch (error) {
-    Model = mongoose.model(collection, schema)
+    Model = mongoose.model(model, schema)
   }
   return Model
 }

@@ -1,5 +1,5 @@
 const createModel = require('./createModel')
 
 module.exports = {
-  items: createModel({ collection: 'items' })
+  items: createModel({ model: 'items' })
 }
