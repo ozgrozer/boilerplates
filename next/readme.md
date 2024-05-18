@@ -3,17 +3,17 @@
 Install dependencies.
 
 ```
-yarn install
+npm install
 ```
 
 Start development.
 
 ```
-yarn dev
+npm run dev
 ```
 
 Build the app.
 
 ```
-yarn build
+npm run build
 ```
