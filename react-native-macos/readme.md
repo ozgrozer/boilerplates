@@ -13,7 +13,7 @@ Start development.
 # first terminal tab
 yarn start
 # second terminal tav
-npx react-native run-macos
+yarn macos
 ```
 
 Build the app.

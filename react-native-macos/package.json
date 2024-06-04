@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "name": "ReactNativeMacOS",
   "scripts": {
-    "start": "react-native start"
+    "start": "react-native start",
+    "macos": "npx react-native run-macos"
   },
   "dependencies": {
     "react": "18.2.0",
