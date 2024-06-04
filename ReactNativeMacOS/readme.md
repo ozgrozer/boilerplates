@@ -1,9 +1,10 @@
 # ReactNativeMacOS
 
-Install dependencies.
+Install dependencies and initialize macos.
 
 ```
 yarn install
+npx react-native-macos-init
 ```
 
 Start development.
