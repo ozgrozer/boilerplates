@@ -12,8 +12,7 @@ export default function RootLayout ({ children }) {
       <body>
         {children}
         <Toaster
-          theme='dark'
-          toastOptions={{}}
+          theme='light'
           position='bottom-center'
         />
       </body>
