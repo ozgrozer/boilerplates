@@ -4,7 +4,7 @@
   "name": "next-tailwind-shadcn",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build --no-lint",
     "start": "next start",
     "lint": "next lint"
   },
