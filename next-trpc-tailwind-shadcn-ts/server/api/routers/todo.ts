@@ -1,16 +1,14 @@
 import { z } from 'zod'
+
 import { publicProcedure, router } from '../trpc'
 
-// In-memory storage for todos in this example
 let todos: { id: string; text: string; completed: boolean }[] = []
 
 export const todoRouter = router({
-  // Get all todos
   getAll: publicProcedure.query(() => {
     return todos
   }),
 
-  // Add a new todo
   add: publicProcedure
     .input(z.object({ text: z.string() }))
     .mutation(({ input }) => {
@@ -23,7 +21,6 @@ export const todoRouter = router({
       return newTodo
     }),
 
-  // Toggle todo completion
   toggle: publicProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ input }) => {
@@ -35,7 +32,6 @@ export const todoRouter = router({
       throw new Error('Todo not found')
     }),
 
-  // Delete a todo
   delete: publicProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ input }) => {
