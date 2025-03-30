@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,8 +17,66 @@ import {
   FormMessage
 } from '@/components/ui/form'
 
+// Create a memoized TodoItem component to prevent unnecessary re-renders
+const TodoItem = React.memo(
+  ({
+    todo,
+    onToggle,
+    onDelete,
+    isToggling
+  }: {
+    todo: Todo
+    onToggle: () => void
+    onDelete: () => void
+    isToggling: boolean
+  }) => {
+    return (
+      <div className='flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors'>
+        <div className='flex items-center gap-3'>
+          <input
+            type='checkbox'
+            onChange={onToggle}
+            disabled={isToggling}
+            checked={todo.completed}
+            className='h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition-colors'
+          />
+          <span
+            className={`${
+              todo.completed ? 'line-through text-gray-400' : 'text-gray-700'
+            } font-medium transition-colors`}
+          >
+            {todo.title}
+          </span>
+        </div>
+        <button
+          onClick={onDelete}
+          aria-label='Delete'
+          disabled={isToggling}
+          className='text-gray-400 hover:text-red-500 focus:outline-none disabled:text-gray-300 transition-colors p-1'
+        >
+          <svg
+            className='h-5 w-5'
+            viewBox='0 0 20 20'
+            fill='currentColor'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path
+              fillRule='evenodd'
+              clipRule='evenodd'
+              d='M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z'
+            />
+          </svg>
+        </button>
+      </div>
+    )
+  }
+)
+
+TodoItem.displayName = 'TodoItem'
+
 export default function TodoApp () {
   const [localTodos, setLocalTodos] = useState<Todo[]>([])
+  const [togglingIds, setTogglingIds] = useState<Set<string>>(new Set())
 
   const { data: serverTodos, isLoading } = trpc.todo.getAll.useQuery()
 
@@ -46,6 +105,9 @@ export default function TodoApp () {
   })
 
   const toggleTodo = trpc.todo.toggle.useMutation({
+    onMutate: ({ id }) => {
+      setTogglingIds(prev => new Set(prev).add(id))
+    },
     onSuccess: updatedTodo => {
       const todoWithDateObjects = {
         ...updatedTodo,
@@ -57,6 +119,18 @@ export default function TodoApp () {
           todo.id === updatedTodo.id ? todoWithDateObjects : todo
         )
       )
+      setTogglingIds(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(updatedTodo.id)
+        return newSet
+      })
+    },
+    onError: (_, variables) => {
+      setTogglingIds(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(variables.id)
+        return newSet
+      })
     }
   })
 
@@ -76,6 +150,14 @@ export default function TodoApp () {
   const onSubmit = (values: TodoFormValues) => {
     addTodo.mutate({ title: values.title })
     form.reset()
+  }
+
+  const handleToggleTodo = (id: string) => {
+    toggleTodo.mutate({ id })
+  }
+
+  const handleDeleteTodo = (id: string) => {
+    deleteTodo.mutate({ id })
   }
 
   return (
@@ -115,48 +197,13 @@ export default function TodoApp () {
       {/* Todo list */}
       <div className='space-y-3'>
         {localTodos.map(todo => (
-          <div
+          <TodoItem
             key={todo.id}
-            className='flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors'
-          >
-            <div className='flex items-center gap-3'>
-              <input
-                type='checkbox'
-                checked={todo.completed}
-                disabled={toggleTodo.isPending}
-                onChange={() => toggleTodo.mutate({ id: todo.id })}
-                className='h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition-colors'
-              />
-              <span
-                className={`${
-                  todo.completed
-                    ? 'line-through text-gray-400'
-                    : 'text-gray-700'
-                } font-medium transition-colors`}
-              >
-                {todo.title}
-              </span>
-            </div>
-            <button
-              aria-label='Delete'
-              disabled={deleteTodo.isPending}
-              onClick={() => deleteTodo.mutate({ id: todo.id })}
-              className='text-gray-400 hover:text-red-500 focus:outline-none disabled:text-gray-300 transition-colors p-1'
-            >
-              <svg
-                className='h-5 w-5'
-                viewBox='0 0 20 20'
-                fill='currentColor'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  fillRule='evenodd'
-                  clipRule='evenodd'
-                  d='M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z'
-                />
-              </svg>
-            </button>
-          </div>
+            todo={todo}
+            onToggle={() => handleToggleTodo(todo.id)}
+            onDelete={() => handleDeleteTodo(todo.id)}
+            isToggling={togglingIds.has(todo.id)}
+          />
         ))}
       </div>
 
