@@ -104,25 +104,25 @@ export function TodoList () {
   }
 
   return (
-    <div className='w-full max-w-2xl mx-auto p-4 space-y-6'>
-      <h1 className='text-3xl font-bold text-center mb-8'>Todo App</h1>
+    <div className='w-full max-w-[500px] mx-auto p-4 space-y-6 bg-white/50 backdrop-blur-sm rounded-lg shadow-sm border'>
+      <h1 className='text-2xl font-bold text-center'>Todo App</h1>
 
       <TodoForm onSubmit={addTodo} />
 
       {error && (
-        <div className='bg-red-50 text-red-700 p-3 rounded-md text-center'>
+        <div className='bg-red-50 text-red-700 p-3 rounded-md text-sm text-center'>
           {error}
         </div>
       )}
 
       {isLoading ? (
-        <div className='flex justify-center py-8'>
-          <div className='animate-spin h-8 w-8 border-4 border-blue-500 rounded-full border-t-transparent'></div>
+        <div className='flex justify-center py-4'>
+          <div className='animate-spin h-6 w-6 border-3 border-blue-500 rounded-full border-t-transparent'></div>
         </div>
       ) : (
-        <div className='space-y-2'>
+        <div className='space-y-3'>
           {todos.length === 0 ? (
-            <p className='text-center text-gray-500 py-6'>
+            <p className='text-center text-gray-500 py-4 text-sm'>
               No todos yet. Add one above!
             </p>
           ) : (

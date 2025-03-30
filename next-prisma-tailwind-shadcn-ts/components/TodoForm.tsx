@@ -1,4 +1,5 @@
 import * as z from 'zod'
+import { Plus } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -6,10 +7,10 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import {
   Form,
-  FormControl,
-  FormField,
   FormItem,
-  FormMessage
+  FormField,
+  FormMessage,
+  FormControl
 } from '@/components/ui/form'
 
 const formSchema = z.object({
@@ -44,7 +45,7 @@ export function TodoForm ({ onSubmit }: TodoFormProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className='flex gap-2 w-full max-w-md'
+        className='flex gap-2 w-full'
       >
         <FormField
           name='title'
@@ -52,13 +53,20 @@ export function TodoForm ({ onSubmit }: TodoFormProps) {
           render={({ field }) => (
             <FormItem className='flex-1'>
               <FormControl>
-                <Input placeholder='Add a new todo...' {...field} />
+                <Input
+                  placeholder='Add a new todo...'
+                  className='h-9 text-sm focus-visible:ring-blue-500'
+                  {...field}
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className='text-xs' />
             </FormItem>
           )}
         />
-        <Button type='submit'>Add</Button>
+        <Button type='submit' size='sm' className='h-9 px-3'>
+          <Plus className='h-4 w-4 mr-1' />
+          Add
+        </Button>
       </form>
     </Form>
   )
