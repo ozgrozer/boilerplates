@@ -1,6 +1,5 @@
 'use client'
 
-import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { trpc } from '@/utils/trpc'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { todoFormSchema, TodoFormValues, Todo } from '@/types/schemas/todo'
 import {
   Form,
   FormItem,
@@ -16,18 +16,8 @@ import {
   FormMessage
 } from '@/components/ui/form'
 
-const todoFormSchema = z.object({
-  text: z.string().min(1, {
-    message: 'Todo text cannot be empty.'
-  })
-})
-
-type TodoFormValues = z.infer<typeof todoFormSchema>
-
 export default function TodoApp () {
-  const [localTodos, setLocalTodos] = useState<
-    { id: string; text: string; completed: boolean }[]
-  >([])
+  const [localTodos, setLocalTodos] = useState<Todo[]>([])
 
   const { data: serverTodos, isLoading } = trpc.todo.getAll.useQuery()
 

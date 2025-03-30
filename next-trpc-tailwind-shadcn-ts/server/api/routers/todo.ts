@@ -1,28 +1,25 @@
-import { z } from 'zod'
-
 import { publicProcedure, router } from '../trpc'
+import { todoFormSchema, Todo, todoSchema } from '@/types/schemas/todo'
 
-let todos: { id: string; text: string; completed: boolean }[] = []
+let todos: Todo[] = []
 
 export const todoRouter = router({
   getAll: publicProcedure.query(() => {
     return todos
   }),
 
-  add: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .mutation(({ input }) => {
-      const newTodo = {
-        id: Date.now().toString(),
-        text: input.text,
-        completed: false
-      }
-      todos.push(newTodo)
-      return newTodo
-    }),
+  add: publicProcedure.input(todoFormSchema).mutation(({ input }) => {
+    const newTodo: Todo = {
+      id: Date.now().toString(),
+      text: input.text,
+      completed: false
+    }
+    todos.push(newTodo)
+    return newTodo
+  }),
 
   toggle: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(todoSchema.pick({ id: true }))
     .mutation(({ input }) => {
       const todo = todos.find(t => t.id === input.id)
       if (todo) {
@@ -33,7 +30,7 @@ export const todoRouter = router({
     }),
 
   delete: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(todoSchema.pick({ id: true }))
     .mutation(({ input }) => {
       const initialLength = todos.length
       todos = todos.filter(t => t.id !== input.id)
