@@ -15,5 +15,4 @@ export const todoSchema = z.object({
 
 export type TodoFormValues = z.infer<typeof todoFormSchema>
 
-// Use Prisma's generated Todo type
 export type Todo = PrismaTodo
