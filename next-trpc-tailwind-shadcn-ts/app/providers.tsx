@@ -7,7 +7,19 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { trpc } from '@/utils/trpc'
 
 export default function Providers ({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchInterval: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false
+          }
+        }
+      })
+  )
+
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
