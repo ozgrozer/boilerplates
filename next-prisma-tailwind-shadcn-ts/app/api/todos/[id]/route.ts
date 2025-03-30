@@ -8,7 +8,8 @@ export async function PATCH (
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params
+    const resolvedParams = await params
+    const id = resolvedParams.id
     const body = await request.json()
     const { completed } = body
 
@@ -57,7 +58,8 @@ export async function DELETE (
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params
+    const resolvedParams = await params
+    const id = resolvedParams.id
 
     // Check if the todo exists
     const existingTodo = await prisma.todo.findUnique({
