@@ -1,11 +1,30 @@
 'use client'
 
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { trpc } from '@/utils/trpc'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormItem,
+  FormField,
+  FormControl,
+  FormMessage
+} from '@/components/ui/form'
+
+const todoFormSchema = z.object({
+  text: z.string().min(1, {
+    message: 'Todo text cannot be empty.'
+  })
+})
+
+type TodoFormValues = z.infer<typeof todoFormSchema>
 
 export default function TodoApp () {
-  const [newTodo, setNewTodo] = useState('')
   const [localTodos, setLocalTodos] = useState<
     { id: string; text: string; completed: boolean }[]
   >([])
@@ -38,34 +57,51 @@ export default function TodoApp () {
     }
   })
 
-  const handleAddTodo = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (newTodo.trim()) {
-      addTodo.mutate({ text: newTodo })
-      setNewTodo('')
+  const form = useForm<TodoFormValues>({
+    resolver: zodResolver(todoFormSchema),
+    defaultValues: {
+      text: ''
     }
+  })
+
+  const onSubmit = (values: TodoFormValues) => {
+    addTodo.mutate({ text: values.text })
+    form.reset()
   }
 
   return (
     <div className='w-[450px] mx-auto p-6 bg-white rounded-xl shadow-lg border border-gray-100'>
-      {/* Form to add new todos */}
-      <form onSubmit={handleAddTodo} className='mb-6 flex gap-2'>
-        <input
-          type='text'
-          value={newTodo}
-          disabled={addTodo.isPending}
-          placeholder='Add a new todo'
-          onChange={e => setNewTodo(e.target.value)}
-          className='flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400'
-        />
-        <button
-          type='submit'
-          disabled={addTodo.isPending}
-          className='bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-blue-300 font-medium'
+      {/* Shadcn Form to add new todos */}
+      <Form {...form}>
+        <form
+          className='mb-6 flex gap-2'
+          onSubmit={form.handleSubmit(onSubmit)}
         >
-          Add
-        </button>
-      </form>
+          <FormField
+            name='text'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className='flex-1'>
+                <FormControl>
+                  <Input
+                    placeholder='Add a new todo'
+                    disabled={addTodo.isPending}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            type='submit'
+            disabled={addTodo.isPending}
+            className='bg-blue-600 hover:bg-blue-700'
+          >
+            Add
+          </Button>
+        </form>
+      </Form>
 
       {/* Todo list */}
       <div className='space-y-3'>
@@ -93,21 +129,21 @@ export default function TodoApp () {
               </span>
             </div>
             <button
+              aria-label='Delete'
               disabled={deleteTodo.isPending}
               onClick={() => deleteTodo.mutate({ id: todo.id })}
               className='text-gray-400 hover:text-red-500 focus:outline-none disabled:text-gray-300 transition-colors p-1'
-              aria-label='Delete'
             >
               <svg
-                xmlns='http://www.w3.org/2000/svg'
                 className='h-5 w-5'
                 viewBox='0 0 20 20'
                 fill='currentColor'
+                xmlns='http://www.w3.org/2000/svg'
               >
                 <path
                   fillRule='evenodd'
-                  d='M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z'
                   clipRule='evenodd'
+                  d='M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z'
                 />
               </svg>
             </button>
@@ -126,16 +162,16 @@ export default function TodoApp () {
       {!isLoading && localTodos.length === 0 && (
         <div className='text-center p-8'>
           <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-12 w-12 mx-auto text-gray-300 mb-3'
             fill='none'
             viewBox='0 0 24 24'
             stroke='currentColor'
+            xmlns='http://www.w3.org/2000/svg'
+            className='h-12 w-12 mx-auto text-gray-300 mb-3'
           >
             <path
+              strokeWidth={2}
               strokeLinecap='round'
               strokeLinejoin='round'
-              strokeWidth={2}
               d='M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'
             />
           </svg>
