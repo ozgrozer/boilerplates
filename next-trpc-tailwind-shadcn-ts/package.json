@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "name": "next-trpc-tailwind-shadcn-ts",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build --no-lint",
     "start": "next start",
     "lint": "next lint"
