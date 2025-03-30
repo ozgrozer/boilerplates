@@ -1,8 +1,8 @@
 import { router } from './trpc'
-import { helloRouter } from './routers/hello'
+import { todoRouter } from './routers/todo'
 
 export const appRouter = router({
-  hello: helloRouter
+  todo: todoRouter
 })
 
 export type AppRouter = typeof appRouter
