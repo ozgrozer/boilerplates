@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma'
 import { publicProcedure, router } from '../trpc'
-import { Todo, todoSchema, todoFormSchema } from '@/types/schemas/todo'
+import { todoSchema, todoFormSchema } from '@/types/schemas/todo'
 
 export const todoRouter = router({
   getAll: publicProcedure.query(async () => {

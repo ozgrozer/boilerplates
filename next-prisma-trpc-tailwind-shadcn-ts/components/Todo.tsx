@@ -23,20 +23,39 @@ export default function TodoApp () {
 
   useEffect(() => {
     if (serverTodos) {
-      setLocalTodos(serverTodos)
+      const todosWithDateObjects = serverTodos.map(todo => ({
+        ...todo,
+        createdAt: new Date(todo.createdAt),
+        updatedAt: new Date(todo.updatedAt)
+      }))
+      setLocalTodos(todosWithDateObjects)
     }
   }, [serverTodos])
 
   const addTodo = trpc.todo.add.useMutation({
     onSuccess: newTodo => {
-      setLocalTodos(prev => [...prev, newTodo])
+      setLocalTodos(prev => [
+        ...prev,
+        {
+          ...newTodo,
+          createdAt: new Date(newTodo.createdAt),
+          updatedAt: new Date(newTodo.updatedAt)
+        }
+      ])
     }
   })
 
   const toggleTodo = trpc.todo.toggle.useMutation({
     onSuccess: updatedTodo => {
+      const todoWithDateObjects = {
+        ...updatedTodo,
+        createdAt: new Date(updatedTodo.createdAt),
+        updatedAt: new Date(updatedTodo.updatedAt)
+      }
       setLocalTodos(prev =>
-        prev.map(todo => (todo.id === updatedTodo.id ? updatedTodo : todo))
+        prev.map(todo =>
+          todo.id === updatedTodo.id ? todoWithDateObjects : todo
+        )
       )
     }
   })
