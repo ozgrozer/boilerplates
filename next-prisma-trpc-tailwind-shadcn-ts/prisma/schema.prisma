@@ -9,7 +9,7 @@ datasource db {
 
 model Todo {
   id        String   @id @default(cuid())
-  text      String
+  title     String
   completed Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

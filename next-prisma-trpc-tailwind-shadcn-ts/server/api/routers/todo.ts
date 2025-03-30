@@ -12,8 +12,8 @@ export const todoRouter = router({
   add: publicProcedure.input(todoFormSchema).mutation(async ({ input }) => {
     return prisma.todo.create({
       data: {
-        text: input.text,
-        completed: false
+        completed: false,
+        title: input.title
       }
     })
   }),

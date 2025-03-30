@@ -2,14 +2,14 @@ import { z } from 'zod'
 import { type Todo as PrismaTodo } from '@prisma/client'
 
 export const todoFormSchema = z.object({
-  text: z.string().min(1, {
-    message: 'Todo text cannot be empty.'
+  title: z.string().min(1, {
+    message: 'Todo title cannot be empty.'
   })
 })
 
 export const todoSchema = z.object({
   id: z.string(),
-  text: z.string(),
+  title: z.string(),
   completed: z.boolean()
 })
 

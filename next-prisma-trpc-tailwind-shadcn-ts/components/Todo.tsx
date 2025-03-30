@@ -69,12 +69,12 @@ export default function TodoApp () {
   const form = useForm<TodoFormValues>({
     resolver: zodResolver(todoFormSchema),
     defaultValues: {
-      text: ''
+      title: ''
     }
   })
 
   const onSubmit = (values: TodoFormValues) => {
-    addTodo.mutate({ text: values.text })
+    addTodo.mutate({ title: values.title })
     form.reset()
   }
 
@@ -87,7 +87,7 @@ export default function TodoApp () {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
-            name='text'
+            name='title'
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
@@ -134,7 +134,7 @@ export default function TodoApp () {
                     : 'text-gray-700'
                 } font-medium transition-colors`}
               >
-                {todo.text}
+                {todo.title}
               </span>
             </div>
             <button
