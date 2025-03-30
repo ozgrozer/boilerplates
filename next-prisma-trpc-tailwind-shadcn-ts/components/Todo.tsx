@@ -35,12 +35,12 @@ export default function TodoApp () {
   const addTodo = trpc.todo.add.useMutation({
     onSuccess: newTodo => {
       setLocalTodos(prev => [
-        ...prev,
         {
           ...newTodo,
           createdAt: new Date(newTodo.createdAt),
           updatedAt: new Date(newTodo.updatedAt)
-        }
+        },
+        ...prev
       ])
     }
   })
