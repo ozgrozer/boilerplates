@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import prisma from '@/lib/prisma'
+import { todoSchema } from '@/lib/schemas'
 
 export async function PATCH (
   request: NextRequest,
@@ -8,7 +9,8 @@ export async function PATCH (
 ) {
   try {
     const { id } = params
-    const { completed, title } = await request.json()
+    const body = await request.json()
+    const { completed } = body
 
     // Check if the todo exists
     const existingTodo = await prisma.todo.findUnique({
@@ -17,6 +19,19 @@ export async function PATCH (
 
     if (!existingTodo) {
       return NextResponse.json({ error: 'Todo not found' }, { status: 404 })
+    }
+
+    // If title is being updated, validate it with the schema
+    let title = undefined
+    if (body.title !== undefined) {
+      const result = todoSchema.pick({ title: true }).safeParse(body)
+      if (!result.success) {
+        return NextResponse.json(
+          { error: result.error.format() },
+          { status: 400 }
+        )
+      }
+      title = result.data.title
     }
 
     // Update the todo

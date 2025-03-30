@@ -1,10 +1,10 @@
-import * as z from 'zod'
 import { Plus } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { todoSchema, TodoFormValues } from '@/lib/schemas'
 import {
   Form,
   FormItem,
@@ -13,30 +13,19 @@ import {
   FormControl
 } from '@/components/ui/form'
 
-const formSchema = z.object({
-  title: z
-    .string()
-    .min(1, {
-      message: 'Todo title is required.'
-    })
-    .max(50, {
-      message: 'Todo title must be less than 50 characters.'
-    })
-})
-
 type TodoFormProps = {
-  onSubmit: (values: z.infer<typeof formSchema>) => Promise<void>
+  onSubmit: (values: TodoFormValues) => Promise<void>
 }
 
 export function TodoForm ({ onSubmit }: TodoFormProps) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<TodoFormValues>({
+    resolver: zodResolver(todoSchema),
     defaultValues: {
       title: ''
     }
   })
 
-  async function handleSubmit (values: z.infer<typeof formSchema>) {
+  async function handleSubmit (values: TodoFormValues) {
     await onSubmit(values)
     form.reset()
   }

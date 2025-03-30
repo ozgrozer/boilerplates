@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import prisma from '@/lib/prisma'
+import { todoSchema } from '@/lib/schemas'
 
 export async function GET () {
   try {
@@ -20,14 +21,19 @@ export async function GET () {
 
 export async function POST (request: NextRequest) {
   try {
-    const { title } = await request.json()
+    const body = await request.json()
 
-    if (!title || typeof title !== 'string') {
+    // Validate the request body using the shared schema
+    const result = todoSchema.safeParse(body)
+
+    if (!result.success) {
       return NextResponse.json(
-        { error: 'Title is required and must be a string' },
+        { error: result.error.format() },
         { status: 400 }
       )
     }
+
+    const { title } = result.data
 
     const todo = await prisma.todo.create({
       data: { title }
