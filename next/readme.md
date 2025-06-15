@@ -3,17 +3,17 @@
 Install dependencies.
 
 ```
-npm install
+pnpm install
 ```
 
 Start development.
 
 ```
-npm run dev
+pnpm dev
 ```
 
 Build the app.
 
 ```
-npm run build
+pnpm build
 ```
