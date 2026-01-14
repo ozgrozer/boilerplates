@@ -21,8 +21,8 @@
     ]
   },
   "devDependencies": {
-    "electron": "^11.0.4",
-    "electron-builder": "^22.9.1",
-    "mkdirp": "^1.0.4"
+    "electron": "^39.2.7",
+    "electron-builder": "^26.4.0",
+    "mkdirp": "^3.0.1"
   }
 }
